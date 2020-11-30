@@ -11,3 +11,6 @@ web-build/
 
 # macOS
 .DS_Store
+
+#Ignorar variables de entorno como configuracion de la app
+enviroment.js
