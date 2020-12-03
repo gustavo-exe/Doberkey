@@ -1,5 +1,6 @@
 import React from "react";
 import * as SQLite from "expo-sqlite";
+import { LogBox } from "react-native";
 
 //expo install expo-sqlite
 //Crear y abrir la base de datos
@@ -29,6 +30,38 @@ const setupDataBaseTableAsync = async()=>
     });
 };
 
+//Insertando datos a la tabla password
+const insertPassword = (password, successFunc) => {
+    db.transaction((tx) =>{
+        tx.executeSql("insert into password (password) values (?)", [password])
+    },
+    (_t, error) => {
+        console.log("Error al insertar en la tabla password");
+        console.log(error);
+    },
+    (_t, _success) => {
+        successFunc;
+    }
+    );
+}
+
+//Obtener los datos del usuario
+const getPassword = (setPasswordFunc) => {
+    db.transaction(tx =>{
+        tx.executeSql("select * from password", [], (_, {rows: {_array}}) => {
+            setPasswordFunc(_array);
+        },
+        (_T, error) => {
+            console.log("Error al momento de obtener los datos");
+            console.log(error);
+        },
+        (_t, _success) => {
+            console.log("Datos obtenidos");
+        }
+        );
+    });
+}
+
 //Borrar la base de datos
 const dropDatabaseTableAsync = async() =>
 {
@@ -51,3 +84,10 @@ const dropDatabaseTableAsync = async() =>
         );
     });
 };
+
+export const db = {
+    setupDataBaseTableAsync,
+    insertPassword,
+    dropDatabaseTableAsync,
+    getPassword,
+}
