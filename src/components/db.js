@@ -33,7 +33,7 @@ const setupDataBaseTableAsync = async()=>
 //Insertando datos a la tabla password
 const insertPassword = (password, successFunc) => {
     db.transaction((tx) =>{
-        tx.executeSql("insert into password (password) values (?)", [password])
+        tx.executeSql("insert into password (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones) values (?, ?, ?, ?, ?, ?)", [password])
     },
     (_t, error) => {
         console.log("Error al insertar en la tabla password");
@@ -47,11 +47,11 @@ const insertPassword = (password, successFunc) => {
 
 //Obtener los datos del usuario
 const getPassword = (setPasswordFunc) => {
-    db.transaction(tx =>{
+    db.transaction((tx) =>{
         tx.executeSql("select * from password", [], (_, {rows: {_array}}) => {
             setPasswordFunc(_array);
         },
-        (_T, error) => {
+        (_t, error) => {
             console.log("Error al momento de obtener los datos");
             console.log(error);
         },
@@ -72,15 +72,16 @@ const dropDatabaseTableAsync = async() =>
             {
                 tx.executeSql("drop table password");
             },
-            (_,result) =>
-            {
-                resolve(result);
-            },
-            (_,error)=>
+            (_t, error)=>
             {
                 console.log("Error al eliminar la tabla de password");
                 reject(error);
+            },
+            (_t, result) =>
+            {
+                resolve(result);
             }
+            
         );
     });
 };
