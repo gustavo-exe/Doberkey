@@ -85,9 +85,40 @@ const dropDatabaseTableAsync = async() =>
     });
 };
 
+//Agregar Password por defecto
+const setupPasswordAsync = async() =>
+{
+    return new Promise((resolve, reject)=>{
+        db.transaction(
+            (tx)=>
+            {
+                tx.executeSql("insert into password (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones) values(?,?,?,?,?,?)",[
+                    "Doberkey",
+                    "user",
+                    "lol",
+                    "correo@gmail.com",
+                    "doberkey.com",
+                    "Creacion de tabla por defecto",
+                ]);
+            },
+            (_t, error) =>
+            {
+                console.log("Error al momento de insertar los valored por defecto");
+                console.log(error)
+            },
+            (_t, success)=>
+            {
+                resolve(success);
+            }
+        );
+    });
+};
+
 export const database = {
     setupDataBaseTableAsync,
     insertPassword,
     dropDatabaseTableAsync,
     getPassword,
+    setupPasswordAsync,
+    setupPasswordAsync,
 }
