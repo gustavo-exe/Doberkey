@@ -6,10 +6,11 @@ const useDatabase = () => {
 
     const loadDatabase = async () => {
         try {
+            console.log("Intentando colocar:");
             //await database.dropDatabaseTableAsync();
             //await database.setupDataBaseTableAsync();
-            //await database.setupPasswordAsync();
-            
+            await database.setupPasswordAsync();
+            //database.getPassword();
 
             setIsLoadingComplete(true);
         } catch (error) {

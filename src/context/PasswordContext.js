@@ -4,13 +4,13 @@ import {database} from "../components/db";
 //Creacion del contexto
 export const PasswordContext = createContext({});
 
-export const PasswordContextProvider =(props)=>
+export const PasswordContextProvider = (props) =>
 {
 /*
     Obetener los valores iniciales del contexto
     se obtienen desde los props
 */
-    const {passwords: initialPassword, children} = props;
+    const { password: initialPassword, children } = props;
 
     //Almacenar los valores en el estado
     const [passwords, setPasswords] = useState(initialPassword);
@@ -22,6 +22,7 @@ export const PasswordContextProvider =(props)=>
 
     const refreshPasswords =()=>
     {
+        console.log("PIDIENDO");
         return database.getPassword(setPasswords);
     };
 
@@ -38,8 +39,8 @@ export const PasswordContextProvider =(props)=>
 
     //Pasar los valores
     return(
-        <NotesContext.Provider value={PasswordContext}>
+        <PasswordContext.Provider value={passwordContext}>
             {children}
-        </NotesContext.Provider>
+        </PasswordContext.Provider>
     );
 };

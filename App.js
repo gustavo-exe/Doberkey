@@ -7,6 +7,7 @@ import ViewScreen from './src/screens/ViewScreen';
 import * as SplashScreen from "expo-splash-screen";
 import useDataBase from "./src/hooks/useDatabase";
 //import { StatusBar } from "react-native";
+import {PasswordContextProvider} from "./src/context/PasswordContext";
 
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
@@ -15,73 +16,79 @@ import {createStackNavigator} from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
 export default function App() {
-  //SplashScreen.preventAutoHideAsync();
+  SplashScreen.preventAutoHideAsync();
 
-  //const isLoadingComplete = useDataBase();
+  const isLoadingComplete = useDataBase();
 
   //Ocultar la pantalla de splash
-  //if (isLoadingComplete) SplashScreen.hideAsync();
+  if (isLoadingComplete) SplashScreen.hideAsync();
 
   //<StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "#5E5C00" translucent = {true} />
   return (
-    <NavigationContainer>
-      
-      
 
-      <Stack.Navigator initialRouteName= "DoberkeyHomeScreen">
-      <Stack.Screen 
-        options={{
-          title: 'Dashboard',
-          headerStyle: 
-        {
-          elevation:0,
-          backgroundColor: '#5E5C00',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: 
-        {
-          textAlign:'right',
-          fontWeight: 'bold',
-        },
-      }}
-      name="DoberkeyHomeScreen" component={HomeScreen}/>
+  <View style={{ flex: 1 }}>
+    
+    <PasswordContextProvider>
 
-      <Stack.Screen 
-        options={{
-          title: 'Formulario',
-          headerStyle: 
-        {
-          elevation:0,
-          backgroundColor: '#5E5C00',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: 
-        {
-          textAlign:'right',
-          fontWeight: 'bold',
-        },
-      }}
-      name="DoberkeyFormScreen" component={FormScreen}/>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName= "DoberkeyHomeScreen">
+        <Stack.Screen 
+          options={{
+            title: 'Dashboard',
+            headerStyle: 
+          {
+            elevation:0,
+            backgroundColor: '#5E5C00',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: 
+          {
+            textAlign:'right',
+            fontWeight: 'bold',
+          },
+        }}
+        name="DoberkeyHomeScreen" component={HomeScreen}/>
 
-      <Stack.Screen 
-        options={{
-          title: 'Vista',
-          headerStyle: 
-        {
-          elevation:0,
-          backgroundColor: '#5E5C00',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: 
-        {
-          textAlign:'right',
-          fontWeight: 'bold',
-        },
-      }}
-      name="DoberkeyViewScreen" component={ViewScreen}/>
-   
-      </Stack.Navigator>
-    </NavigationContainer>
+        <Stack.Screen 
+          options={{
+            title: 'Formulario',
+            headerStyle: 
+          {
+            elevation:0,
+            backgroundColor: '#5E5C00',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: 
+          {
+            textAlign:'right',
+            fontWeight: 'bold',
+          },
+        }}
+        name="DoberkeyFormScreen" component={FormScreen}/>
+
+        <Stack.Screen 
+          options={{
+            title: 'Vista',
+            headerStyle: 
+          {
+            elevation:0,
+            backgroundColor: '#5E5C00',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: 
+          {
+            textAlign:'right',
+            fontWeight: 'bold',
+          },
+        }}
+        name="DoberkeyViewScreen" component={ViewScreen}/>
+    
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PasswordContextProvider>
+  </View>
+
+    
   );
 }
 
