@@ -1,4 +1,4 @@
-import {Container,  Header, Content, Card, CardItem, Body,H1,List,Text,View, ListItem} from "native-base";
+import {Container,  Header, Content, Card, CardItem, Body,H1,List,Text,View, ListItem, Item} from "native-base";
 import React , {useContext, useEffect, useState} from "react";
 import {Dimensions,Button } from "react-native";
 import {PasswordContext} from "../context/PasswordContext";
@@ -31,24 +31,41 @@ const Home = ({navigation})=>
                 
                 
                 <Content style={{flex:1, zIndex:3,width:width,position:'relative',backgroundColor:'transparent',flexDirection:'column' }} >
-                    <Content style={{margin:'10%'}} >
-                    <Card>
-                        <CardItem header bordered>
-                            <Text>NativeBase</Text>
-                        </CardItem>
-                            <CardItem>
-                            <List>
-                                {passwords ? passwords.map((password)=>(
-                                <ListItem key={password.id.toString()} >
-                                    <Text>
-                                        {password.nombreDelSitio}
+                    <List style={{margin:'10%'}} >
+                    {passwords ? passwords.map((password)=>(
+                        <Card style={{backgroundColor:'#ffffff',shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 12,
+                        },
+                        shadowOpacity: 0.58,
+                        shadowRadius: 16.00,
+                        
+                        elevation: 24, marginBottom:'10%'}} >
+                            
+                            <CardItem style={{marginTop:10}} >
+                                <Body key={password.id.toString()}>
+                                <Text>
+                                    <Text style={{fontSize:40, weight:'90%' ,fontWeight:'bold'}}>
+                                        {password.nombreDelSitio} {"\n"}
                                     </Text>
-                                </ListItem>
-                                )):null}
-                            </List>
+                                </Text>
+                                <Text key={password.id.toString()} >
+                                    <Text>
+                                        Usuario: {password.usuario} {"\n"}
+                                    </Text>
+                                    <Text>
+                                        Observacione: {password.observaciones}
+                                    </Text>
+                                </Text>
+                                </Body>
+
                             </CardItem>
-                    </Card>
-                    </Content>
+                            
+                        </Card>
+                    )):null}  
+                    </List>
+
                 </Content>
                 </View>
             </View>
