@@ -1,6 +1,6 @@
-import {Container,  Header, Content, Card, CardItem, Body,H1,List,Text,View, ListItem, Item} from "native-base";
+import {Container,  Header, Content,Spinner ,Card, CardItem, Body,H1,List,Text,View, ListItem, Item} from "native-base";
 import React , {useContext, useEffect, useState} from "react";
-import {Dimensions,Button } from "react-native";
+import {Dimensions,Button,StyleSheet } from "react-native";
 import {PasswordContext} from "../context/PasswordContext";
 
 
@@ -15,18 +15,20 @@ const Home = ({navigation})=>
     //console.log(passwords.length);
     const [cantidadDeClaves, setCantidadDeClaves] = useState(0);
     
-/* useEffect(()=>
-{
-    //if (!passwords)    console.log(passwords.length);
-    setCantidadDeClaves(passwords.length);
-},[]) */
+    if (!passwords) {
+        return (
+          <View style={styles.spinner}>
+            <Spinner color="#731F0A" />
+          </View>
+        );
+      }
 
         return(
             <View style={{flex:1, backgroundColor:'#fff'}} >
                 
                 <View style={{flex:0.3,alignItems:'center',padding:'5%',borderBottomLeftRadius:40 ,backgroundColor:'#5E5C00'}}>
                     <Text style={{color:'#fff',fontSize:20,margin:'3%' ,fontWeight:'bold' }} >Hola, ¿cuantas guardaremos?</Text>
-                    <Text style={{color:'#B6B27F', margin:'4%'}} > {cantidadDeClaves} Claves Guardadas</Text>
+                    <Text style={{color:'#B6B27F', margin:'4%'}} > {passwords.length} Claves Guardadas</Text>
                     <Button color="#CAA648" title="Añadir Clave"></Button>
                 </View>
     
@@ -82,5 +84,13 @@ const Home = ({navigation})=>
             </View>
         )
 };
+
+const styles = StyleSheet.create({
+    spinner:
+    {
+        flex: 1, 
+        justifyContent: "center" 
+    },
+});
 
 export default Home;
