@@ -10,7 +10,6 @@ const useDatabase = () => {
             //await database.dropDatabaseTableAsync();
             //await database.setupDataBaseTableAsync();
             //await database.setupPasswordAsync();
-            //database.getPassword();
 
             setIsLoadingComplete(true);
         } catch (error) {
