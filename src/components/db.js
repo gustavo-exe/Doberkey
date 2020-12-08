@@ -27,9 +27,9 @@ const getPassword = (setPasswordFunc) => {
 };
 
 //Insertando datos a la tabla password
-const insertPassword = (password, successFunc) => {
+const insertPassword = (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones, successFunc) => {
     db.transaction((tx) =>{
-        tx.executeSql("insert into password (nombreDelSitio) values (?);", [password]);
+        tx.executeSql("insert into password (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones) values(?,?,?,?,?,?);", [nombreDelSitio, usuario, contraseña, correo, enlace, observaciones]);
     },
     (_t, error) => {
         console.log("Error al insertar en la tabla password");

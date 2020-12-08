@@ -26,9 +26,9 @@ export const PasswordContextProvider = (props) =>
         return database.getPassword(setPasswords);
     };
 
-    const addNewPassword =(passwords)=>
+    const addNewPassword =(nombreDelSitio, usuario, contraseña, correo, enlace, observaciones)=>
     {
-        return database.insertPassword(passwords,refreshPasswords);
+        return database.insertPassword(nombreDelSitio, usuario, contraseña, correo, enlace, observaciones, refreshPasswords);
     };
 
     //Objeto de contexto

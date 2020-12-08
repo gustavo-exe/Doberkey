@@ -26,10 +26,17 @@ const Home = ({navigation})=>
         return(
             <View style={styles.contenedorPrincipal} >
                 
+<<<<<<< HEAD
                 <View style={styles.topGreen}>
                     <Text style={styles.saludo} >Hola, ¿cuantas guardaremos?</Text>
                     <Text style={{color:'#B6B27F', margin:'4%'}} > {passwords.length} Claves Guardadas</Text>
                     <Button color="#CAA648" title="Añadir Clave"></Button>
+=======
+                <View style={{flex:0.3,alignItems:'center',padding:'5%',borderBottomLeftRadius:40 ,backgroundColor:'#5E5C00'}}>
+                    <Text style={{color:'#fff',fontSize:20,margin:'3%' ,fontWeight:'bold' }} >Hola, Lorem Impun</Text>
+                    <Text style={{color:'#B6B27F', margin:'4%'}} >3 Claves Guardadas</Text>
+                    <Button color="#CAA648" onPress={() => navigation.navigate('DoberkeyFormScreen', {})} title="Añadir Clave"></Button>
+>>>>>>> 29381c7c4e331c44faefdac6296ace2405bed2fb
                 </View>
     
                 <View style={styles.contenedorMiddle}>
