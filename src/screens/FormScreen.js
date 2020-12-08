@@ -17,7 +17,7 @@ const FormScreen = ({navigation}) => {
     const {addNewPassword, refreshPasswords} = passwordContext;
 
     const handlerNewPassword = () => {
-        addNewPassword();
+        addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
 
         // Go back para volver a la pantalla anterior
         navigation.goBack();
