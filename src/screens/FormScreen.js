@@ -1,6 +1,7 @@
-import React , {useEffect, useState} from "react";
+import React , {useContext, useEffect, useState} from "react";
 import { StyleSheet } from "react-native";
 import { Container, Content, H1, Input, Item, Text, Form, Label, Button, ListItem, Left} from "native-base";
+import {PasswordContext} from "../context/PasswordContext";
 
 
 const FormScreen = ({navigation}) => {
@@ -10,6 +11,17 @@ const FormScreen = ({navigation}) => {
     const [correo, setCorreo] = useState("");
     const [enlace, setEnlace] = useState("");
     const [observacion, setObservacion] = useState("");
+
+    const passwordContext = useContext(PasswordContext);
+    //aqui falta un valor  no estoy seguro
+    const {addNewPassword, refreshPasswords} = passwordContext;
+
+    const handlerNewPassword = () => {
+        addNewPassword();
+
+        // Go back para volver a la pantalla anterior
+        navigation.goBack();
+    }
 
     return(
         <Content>
@@ -41,7 +53,7 @@ const FormScreen = ({navigation}) => {
                         <Input placeholder= "Observaciones" value={observacion} onChangeText={setObservacion}/>
                     </Item>
 
-                    <Button rounded warning>
+                    <Button rounded warning onPress={handlerNewPassword}>
                         <Text>Guardar</Text>
                     </Button>
         
