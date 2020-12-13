@@ -1,6 +1,6 @@
 import React , {useContext, useEffect, useState} from "react";
-import { StyleSheet } from "react-native";
-import { Container, Content, H1, Input, Item, Text, Form, Label, Button, ListItem, Left} from "native-base";
+import { Alert, StyleSheet } from "react-native";
+import { Container, Content, H1, Input, Item, Text, Form, Label, Button, ListItem,Icon ,Left} from "native-base";
 import {PasswordContext} from "../context/PasswordContext";
 
 
@@ -11,6 +11,8 @@ const FormScreen = ({navigation}) => {
     const [correo, setCorreo] = useState("");
     const [enlace, setEnlace] = useState("");
     const [observacion, setObservacion] = useState("");
+    const [verContraseña, setVerContraseña] = useState(false);
+    const [interruptor, setInterruptor] = useState(true);
 
     const passwordContext = useContext(PasswordContext);
     //aqui falta un valor  no estoy seguro
@@ -22,35 +24,57 @@ const FormScreen = ({navigation}) => {
         // Go back para volver a la pantalla anterior
         navigation.goBack();
     }
+    const visulizarContraseña = async () =>
+    {
+        if (interruptor)
+        {
+            setInterruptor(false);
+            setVerContraseña(true);
+        }
+        else
+        {
+            setInterruptor(true);
+            setVerContraseña(false);
+        } 
+        
+    };
 
     return(
-        <Content>
-            <Container>
-                <H1 style={{textAlign: "center"}}>Ingrese la contraseña</H1>
+        
+            <Container style={{flex:1, justifyContent:'space-between', flexDirection:'column', padding:'5%'}} >
+                <H1 style={{textAlign: "center"}}>Ingrese los datos</H1>
                 
-                    <Item style={{borderColor: '#5E5C00', borderRadius: 20}}>
-                        <Input placeholder= "Nombre del sitio" value={sitio} onChangeText={setSitio}/>
+                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                        <Label>Nombre del sitio</Label>
+                        <Input value={sitio} onChangeText={setSitio}/>
                     </Item>
 
-                    <Item style={{borderColor: '#5E5C00'}}>
-                        <Input placeholder= "Usuario" value={usuario} onChangeText={setUsuario}/>
+                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                        <Label>Usuario</Label>
+                        <Input value={usuario} onChangeText={setUsuario}/>
                     </Item>
 
 
-                    <Item style={{borderColor: '#5E5C00'}}>
-                        <Input placeholder= "Contraseña" value={contraseña} onChangeText={setContraseña}/>
+                    <Item icon onPress={visulizarContraseña} floatingLabel style={{borderColor: '#5E5C00'}}>
+                        
+                        <Label>Contraseña</Label>
+                        <Input secureTextEntry={verContraseña ? true : false } value={contraseña} onChangeText={setContraseña}/>
+                        <Icon name="eye" />
                     </Item>
 
-                    <Item style={{borderColor: '#5E5C00'}}>
-                        <Input placeholder= "Correo" value={correo} onChangeText={setCorreo}/>
+                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                        <Label>Correo</Label>
+                        <Input value={correo} onChangeText={setCorreo}/>
                     </Item>
 
-                    <Item style={{borderColor: '#5E5C00'}}>
-                        <Input placeholder= "Enlace" value={enlace} onChangeText={setEnlace}/>
+                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                        <Label>Enlace</Label>
+                        <Input value={enlace} onChangeText={setEnlace}/>
                     </Item>
 
-                    <Item style={{borderColor: '#5E5C00'}}>
-                        <Input placeholder= "Observaciones" value={observacion} onChangeText={setObservacion}/>
+                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                        <Label>Observaciones</Label>
+                        <Input value={observacion} onChangeText={setObservacion}/>
                     </Item>
 
                     <Button rounded warning onPress={handlerNewPassword}>
@@ -58,7 +82,7 @@ const FormScreen = ({navigation}) => {
                     </Button>
         
             </Container>
-        </Content>
+       
     )
 }
 
