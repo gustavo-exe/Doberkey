@@ -20,15 +20,19 @@ export const PasswordContextProvider = (props) =>
         refreshPasswords();
     },[]);
 
+    //Refrescar la nota cuando se modifique o inserte
+
     const refreshPasswords =()=>
     {
         console.log("PIDIENDO");
         return database.getPassword(setPasswords);
     };
 
-    const addNewPassword =(nombreDelSitio, usuario, contraseña, correo, enlace, observaciones)=>
+
+    const addNewPassword = async (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones)=>
     {
-        return database.insertPassword(nombreDelSitio, usuario, contraseña, correo, enlace, observaciones, refreshPasswords);
+        await database.insertPassword(nombreDelSitio, usuario, contraseña, correo, enlace, observaciones, refreshPasswords);
+        return refreshPasswords();s
     };
 
     //Objeto de contexto
