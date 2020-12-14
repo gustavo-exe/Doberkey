@@ -1,7 +1,8 @@
 import React , {useContext, useEffect, useState} from "react";
 import { Alert, StyleSheet } from "react-native";
-import { Container, Content, H1, Input, Item, Text, Form, Label, Button, ListItem,Icon ,Left} from "native-base";
+import { Container, Content, H1, Input, Item, Text, Form, Label, Button, Spinner, ListItem,Icon ,Left} from "native-base";
 import {PasswordContext} from "../context/PasswordContext";
+import * as Font from "expo-font";
 
 
 const FormScreen = ({navigation}) => {
@@ -13,13 +14,36 @@ const FormScreen = ({navigation}) => {
     const [observacion, setObservacion] = useState("");
     const [verContraseña, setVerContraseña] = useState(false);
     const [interruptor, setInterruptor] = useState(true);
+    const [fontsLoaded, setFontsLoaded] = useState(false);     
+     
+
+    // Cargar la fuente de manera asíncrona
+    useEffect(() => {
+    const loadFontsAsync = async () => {
+      await Font.loadAsync({
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      }).then(() => {
+        setFontsLoaded(true);
+      });
+    };
+
+    loadFontsAsync();
+    }, []);
 
     const passwordContext = useContext(PasswordContext);
     //aqui falta un valor  no estoy seguro
     const {addNewPassword, refreshPasswords} = passwordContext;
 
     const handlerNewPassword = () => {
-        addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
+        const doberKey = {
+            site: sitio,
+            user: usuario,
+            password: contraseña,
+            email: contraseña,
+            link: enlace,
+            observation: observacion,
+        }
+        addNewPassword(doberKey);
 
         // Go back para volver a la pantalla anterior
         navigation.goBack();
@@ -38,6 +62,13 @@ const FormScreen = ({navigation}) => {
         } 
         
     };
+
+    if (!fontsLoaded)
+    return (
+      <Content contentContainerStyle={styles.content}>
+        <Spinner color="#5E5C00" />
+      </Content>
+    );
 
     return(
         
@@ -83,7 +114,15 @@ const FormScreen = ({navigation}) => {
         
             </Container>
        
-    )
-}
+    );
+};
+
+const styles = StyleSheet.create({
+    content:{
+        flex:1,
+        justifyContent: "center",
+    },
+})
+
 
 export default FormScreen;

@@ -27,9 +27,16 @@ const getPassword = (setPasswordFunc) => {
 };
 
 //Insertando datos a la tabla password
-const insertPassword = (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones, successFunc) => {
+const insertPassword = async (doberKey, successFunc) => {
     db.transaction((tx) =>{
-        tx.executeSql("insert into password (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones) values(?,?,?,?,?,?);", [nombreDelSitio, usuario, contraseña, correo, enlace, observaciones]);
+        tx.executeSql("insert into password (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones) values(?,?,?,?,?,?);", [
+            doberKey.site,
+            doberKey.user,
+            doberKey.getPassword,
+            doberKey.email,
+            doberKey.link,
+            doberKey.observation,
+        ]);
     },
     (_t, error) => {
         console.log("Error al insertar en la tabla password");
