@@ -1,6 +1,6 @@
 import {Container,  Header, Button, Content,Spinner ,Card, CardItem, Body,H1,List,Text,View, ListItem, Icon,Item} from "native-base";
 import React , {useContext, useEffect, useState} from "react";
-import {Dimensions,StyleSheet, TouchableOpacity } from "react-native";
+import {Dimensions,StyleSheet } from "react-native";
 import {PasswordContext} from "../context/PasswordContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -48,13 +48,16 @@ const Home = ({navigation})=>
                     
                     <List style={styles.listaMargen} >
                     {passwords ? passwords.map((password)=>(
-                    <TouchableOpacity
+
+                    <TouchableOpacity 
+                    key={password.id.toString()}
+                    style={{padding:'2%'}}
                     onPress={()=>{
                         navigation.navigate('DoberkeyViewScreen',{id: password.id});
                     }}
                     >
                         <Card 
-                            key={password.id.toString()} 
+                             
                             style={styles.elementoCard} 
                            
                         >
@@ -157,6 +160,7 @@ const styles = StyleSheet.create({
     },
     elementoCard:
     {
+        
         backgroundColor:'#ffffff', 
         borderRadius:20,
         shadowColor: "#000",
@@ -167,7 +171,8 @@ const styles = StyleSheet.create({
             },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,            
-        elevation: 24,marginBottom:'10%'
+        elevation: 10,
+        marginBottom:'10%'
     },
     itemSitio:
     {
