@@ -1,12 +1,12 @@
 import {Content,H1} from "native-base";
 import React , {useEffect, useState} from "react";
 import {Button } from "react-native";
-const View = ({navigation})=>
+const View = ({route,navigation})=>
 {
     return(
         <Content>
-            <H1>HOME</H1>
-            <Button title="Form" />
+            <H1>formulario</H1>
+            
         </Content>
     )
 }
