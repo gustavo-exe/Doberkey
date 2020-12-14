@@ -1,6 +1,6 @@
-import {Container,  Header, Content,Spinner ,Card, CardItem, Body,H1,List,Text,View, ListItem, Item} from "native-base";
+import {Container,  Header, Button, Content,Spinner ,Card, CardItem, Body,H1,List,Text,View, ListItem, Icon,Item} from "native-base";
 import React , {useContext, useEffect, useState} from "react";
-import {Dimensions,Button,StyleSheet } from "react-native";
+import {Dimensions,StyleSheet } from "react-native";
 import {PasswordContext} from "../context/PasswordContext";
 
 
@@ -27,9 +27,13 @@ const Home = ({navigation})=>
             <View style={styles.contenedorPrincipal} >
                 
                 <View style={styles.topGreen}>
-                    <Text style={styles.saludo} >Hola, ¿cuantas guardaremos?</Text>
-                    <Text style={{color:'#B6B27F', margin:'4%'}} > {passwords.length} Claves Guardadas</Text>
-                    <Button color="#CAA648" onPress={() => navigation.navigate('DoberkeyFormScreen', {})} title="Añadir Clave"></Button>
+                    <Text style={styles.saludo} >Hola, ¿cual guardaremos hoy?</Text>
+                    <Text style={{color:'#B6B27F', margin:'4%'}} > {passwords.length} claves guardadas</Text>
+                    <View >
+                    <Button backgroundColor="#CAA648" onPress={() => navigation.navigate('DoberkeyFormScreen', {})}>
+                        <Icon style={{}} name="add" />
+                    </Button>
+                    </View>
                 </View>
     
                 <View style={styles.contenedorMiddle}>
