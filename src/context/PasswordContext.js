@@ -29,11 +29,10 @@ export const PasswordContextProvider = (props) =>
     };
 
 
-    const addNewPassword = async (doberKey)=>
+    const addNewPassword = async (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones)=>
     {
-        //Igual llamar doberKey
-        await database.insertPassword(doberKey, refreshPasswords);
-        return refreshPasswords();
+        await database.insertPassword(nombreDelSitio, usuario, contraseña, correo, enlace, observaciones, refreshPasswords);
+        return refreshPasswords();s
     };
 
     //Objeto de contexto
