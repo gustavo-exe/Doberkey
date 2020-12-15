@@ -2,9 +2,12 @@
     <img src="https://user-images.githubusercontent.com/61214852/102045057-bde51980-3d9d-11eb-9b13-941a756732c2.jpg" alt="Logo">
 </p>
 
-Waves es una aplicación de gestos de contraseñas
+Doberkey es un gestor de contraseñas
 
-Es un proyecto para la clase de programación móvil I de la Universidad Catolica de Honduras Campus "Jesus Sacramentado".
+DoberKey ayuda a las personas a administrar mejor las claves. DoberKey representa un armario de llaves físico.<br>
+Simplemente agregue sus datos y password a Doberkey y así lo podra tener a su alcance de manera fácil y rápida. DoberKey le ayuda a mantener su inventario de claves ordenado y con una vista muy agradable para su satisfacción.
+
+DoberKey es un proyecto para la clase de programación móvil I de la Universidad Catolica de Honduras Campus "Jesus Sacramentado".
 
 ## Objetivos
 ### Objetivos General
@@ -20,7 +23,7 @@ Es un proyecto para la clase de programación móvil I de la Universidad Catolic
 
 ## Construido con
 
-Es una aplicacion basada en los conocimientos de JavaScript, Expo, NodeJS en la clase Programación Móvil I, impartida por el 
+Es una aplicacion basada en los conocimientos de JavaScript, Expo, NodeJS y SQLite en la clase Programación Móvil I, impartida por el 
 [Ing. Héctor Sábillon](https://github.com/hsabillon7)
 
 Como framework utilizamos:
@@ -54,7 +57,7 @@ npm install
 <br>
 <br>
 <p align="center">
- Autor<br> 
-  Frase 
+ Sam Levenson<br> 
+  No mires el reloj; haz lo mismo que él, ve avanzando.
                                                         
 </p>
