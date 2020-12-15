@@ -19,8 +19,6 @@ DoberKey es un proyecto para la clase de programación móvil I de la Universida
 ![DoberkeyMockup](https://user-images.githubusercontent.com/61214852/102173999-08c86500-3e62-11eb-9111-572684efdbde.jpg)
 ![image](https://user-images.githubusercontent.com/61214852/102175023-5a71ef00-3e64-11eb-810d-97c72fadfd47.png)
 
-## Paleta de colores
-
 
 ## Construido con
 
