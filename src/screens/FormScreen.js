@@ -1,6 +1,6 @@
 import React , {useContext, useEffect, useState} from "react";
-import { Alert, StyleSheet } from "react-native";
-import { Container, Content, H1, Input, Item, Text, Form, Label, Button, Spinner, ListItem,Icon ,Left} from "native-base";
+import { StyleSheet } from "react-native";
+import { Container, Content, H1,View ,Input, Item, Text, Label, Button, Spinner,Icon } from "native-base";
 import {PasswordContext} from "../context/PasswordContext";
 import * as Font from "expo-font";
 
@@ -130,9 +130,11 @@ const FormScreen = ({navigation}) => {
                     </Item>
 
                     { errorSitio ? <Text style={styles.error}>¡No debes dejar campos vacios!</Text> : null}
-                    <Button block  onPress={handlerNewPassword} style={styles.button}>
+                    <View style={styles.viewBotton} > 
+                    <Button rounded onPress={handlerNewPassword} style={styles.button}>
                         <Text style={styles.textButton}>Guardar</Text>
                     </Button>
+                    </View>
         
             </Container>
        
@@ -152,16 +154,25 @@ const styles = StyleSheet.create({
         borderColor: 'red',
     },
     button:{
-        fontFamily: "Roboto",
         backgroundColor:'#CAA648',
+		justifyContent:"center",
+		display:'flex',
+		flexDirection:'row',
+		width:'90%'
     },
     textButton:{
         fontWeight: "bold", 
-        fontSize: 20,
     },
     inputCorrect:{
         borderColor: '#5E5C00',  
-    }
+    },
+    viewBotton:
+	{
+		display:'flex',
+		flexDirection:'row', 
+		justifyContent:'center',
+		marginTop:'3%'
+	},
     
 })
 

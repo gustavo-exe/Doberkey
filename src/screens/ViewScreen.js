@@ -74,6 +74,7 @@ const handlerUpdatePassword = async () =>
 {
     
     await updateOnePassword(contraseña, correo, enlace, sitio, observacion, usuario,id);
+    navigation.goBack();
 };
 
 const visulizarContraseña = async () =>
