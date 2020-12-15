@@ -21,7 +21,7 @@ const Home = ({navigation})=>
                 
                 <View style={styles.topGreen}>
                     <Text style={styles.saludo} >Hola, ¿cuál guardaremos hoy?</Text>
-                    <Text style={styles.claves} > {passwords.length} claves guardadas</Text>
+                   
                     <View style={styles.botonIcionGreen} >
                     <Button rounded style={styles.botonPlus} onPress={() => navigation.navigate('DoberkeyFormScreen', {})}>
                         <Icon name="add" />
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     {   flex:0.3, 
         alignItems:'center',
         padding:'5%',
+        justifyContent:'space-between',
         borderBottomLeftRadius:40,
         backgroundColor:'#5E5C00'
     },
