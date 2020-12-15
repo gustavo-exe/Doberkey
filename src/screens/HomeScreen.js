@@ -12,9 +12,6 @@ const Home = ({navigation})=>
     const { passwords } = useContext(PasswordContext);
     console.log("Home:");
     console.log(passwords);
-    //console.log(passwords.length);
-    //const [cantidadDeClaves, setCantidadDeClaves] = useState(0);
-  
 
         return(
             <View style={styles.contenedorPrincipal} >
