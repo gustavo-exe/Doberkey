@@ -1,8 +1,8 @@
-import {Container,  Header, Content,Spinner ,Card, CardItem, Body,H1,List,Text,View, ListItem, Item} from "native-base";
+import {Container,  Header, Button, Content,Spinner ,Card, CardItem, Body,H1,List,Text,View, ListItem, Icon,Item} from "native-base";
 import React , {useContext, useEffect, useState} from "react";
-import {Dimensions,Button,StyleSheet } from "react-native";
+import {Dimensions,StyleSheet } from "react-native";
 import {PasswordContext} from "../context/PasswordContext";
-
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const {width, height} = Dimensions.get("window");
 
@@ -13,7 +13,7 @@ const Home = ({navigation})=>
     console.log("Home:");
     console.log(passwords);
     //console.log(passwords.length);
-    const [cantidadDeClaves, setCantidadDeClaves] = useState(0);
+    //const [cantidadDeClaves, setCantidadDeClaves] = useState(0);
     
     if (!passwords) {
         return (
@@ -27,9 +27,13 @@ const Home = ({navigation})=>
             <View style={styles.contenedorPrincipal} >
                 
                 <View style={styles.topGreen}>
-                    <Text style={styles.saludo} >Hola, ¿cuantas guardaremos?</Text>
-                    <Text style={{color:'#B6B27F', margin:'4%'}} > {passwords.length} Claves Guardadas</Text>
-                    <Button color="#CAA648" onPress={() => navigation.navigate('DoberkeyFormScreen', {})} title="Añadir Clave"></Button>
+                    <Text style={styles.saludo} >Hola, ¿cual guardaremos hoy?</Text>
+                    <Text style={{color:'#B6B27F', margin:'4%'}} > {passwords.length} claves guardadas</Text>
+                    <View style={{ justifyContent:"center",display:'flex',flexDirection:'row' ,width:'60%'}} >
+                    <Button rounded style={{width:'60%', backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row'}} onPress={() => navigation.navigate('DoberkeyFormScreen', {})}>
+                        <Icon style={{}} name="add" />
+                    </Button>
+                    </View>
                 </View>
     
                 <View style={styles.contenedorMiddle}>
@@ -41,9 +45,22 @@ const Home = ({navigation})=>
                 
                 
                 <Content  style={styles.contenedorTarjetas} >
+                    
                     <List style={styles.listaMargen} >
                     {passwords ? passwords.map((password)=>(
-                        <Card key={password.id.toString()} style={styles.elementoCard} >
+
+                    <TouchableOpacity 
+                    key={password.id.toString()}
+                    style={{padding:'2%'}}
+                    onPress={()=>{
+                        navigation.navigate('DoberkeyViewScreen',{id: password.id});
+                    }}
+                    >
+                        <Card 
+                             
+                            style={styles.elementoCard} 
+                           
+                        >
                             <CardItem  bordered style={styles.itemSitio} >
                                         <Text  style={styles.sitio}>
                                             {password.nombreDelSitio} {"\n"}
@@ -68,9 +85,10 @@ const Home = ({navigation})=>
                            
                             
                         </Card>
+                    </TouchableOpacity>
                     )):null}  
                     </List>
-
+                    
                 </Content>
                 </View>
             </View>
@@ -142,6 +160,7 @@ const styles = StyleSheet.create({
     },
     elementoCard:
     {
+        
         backgroundColor:'#ffffff', 
         borderRadius:20,
         shadowColor: "#000",
@@ -152,7 +171,8 @@ const styles = StyleSheet.create({
             },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,            
-        elevation: 24,marginBottom:'10%'
+        elevation: 10,
+        marginBottom:'10%'
     },
     itemSitio:
     {
