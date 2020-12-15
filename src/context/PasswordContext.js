@@ -14,6 +14,7 @@ export const PasswordContextProvider = (props) =>
 
     //Almacenar los valores en el estado
     const [passwords, setPasswords] = useState(initialPassword);
+    const [onePassword, setOnePassword] = useState("");
 
     //Cargar las contraseñas
     useEffect(() => {
@@ -24,21 +25,38 @@ export const PasswordContextProvider = (props) =>
 
     const refreshPasswords =()=>
     {
-        console.log("PIDIENDO");
+        //console.log("PIDIENDO");
         return database.getPassword(setPasswords);
     };
+
+    const getPasswordById = (id) =>
+    {
+
+        return database.getPasswordById(id, setOnePassword);
+        //console.log(password);
+    };
+
 
 
     const addNewPassword = async (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones)=>
     {
         await database.insertPassword(nombreDelSitio, usuario, contraseña, correo, enlace, observaciones, refreshPasswords);
-        return refreshPasswords();s
+        return refreshPasswords();
+    };
+
+    const updateOnePassword = async (contraseña, correo, enlace, nombreDelSitio, observaciones, usuario, id) =>
+    {
+        await database.updatePassword(contraseña, correo, enlace, nombreDelSitio, observaciones, usuario, id, refreshPasswords);
+        return refreshPasswords();
     };
 
     //Objeto de contexto
     const passwordContext ={
         passwords,
         addNewPassword,
+        getPasswordById,
+        onePassword,
+        updateOnePassword,
     };
 
     //Pasar los valores

@@ -1,11 +1,15 @@
 import React , {useContext, useEffect, useState} from "react";
 import { Alert, StyleSheet,Dimensions } from "react-native";
-import { Container, Content, View,H1, Input, Card, CardItem, Item, Text, Form, Label, Button, ListItem,Icon ,Left} from "native-base";
+import { Container, Content, View,H1, Button, Input, Card, CardItem, Item, Text, Form, Label,ListItem,Icon,Spinner ,Left} from "native-base";
 import {PasswordContext} from "../context/PasswordContext";
 const {width, height} = Dimensions.get("window");
+import * as Font from "expo-font";
+
 const ViewInformation = ({route,navigation})=>
 {
     const { id }= route.params;
+    console.log("Id de password:");
+    console.log(id);
 
     const [sitio, setSitio] = useState("");
     const [usuario, setUsuario] = useState("");
@@ -17,16 +21,69 @@ const ViewInformation = ({route,navigation})=>
     const [interruptor, setInterruptor] = useState(true);
 
     const passwordContext = useContext(PasswordContext);
-    //aqui falta un valor  no estoy seguro
-    const {addNewPassword, refreshPasswords} = passwordContext;
 
-    const handlerNewPassword = () => {
-        addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
+    //Traer loc omponentes para actulizar la nota
+    const {onePassword, getPasswordById, updateOnePassword} = passwordContext;
 
-        // Go back para volver a la pantalla anterior
-        navigation.goBack();
+    //const [thePassword, setThePassword] = useState(null);
+    const [fontsLoaded, setFontsLoaded] = useState(false);     
+     
+
+   
+   useEffect(() => {
+
+        //Obtener la nota
+        obteniendoNota(id, onePassword);
+
+        //Cargar la fuente
+        const loadFontsAsync = async () => {
+        await Font.loadAsync({
+            Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+        }).then(() => {
+            setFontsLoaded(true);
+        });
+        };
+
+        loadFontsAsync();
+    }, []);
+/* 
+useEffect(()=>
+{
+   obteniendoNota(id, onePassword);
+},[]); */
+
+
+const obteniendoNota = (id, onePassword)=>
+{
+    const getPassword = () =>
+        {
+            getPasswordById(id);
+        };
+
+    getPassword();
+
+    if(onePassword.length)
+    {
+        //setThePassword(onePassword);
+        setContraseña(onePassword[0].contraseña);
+        setCorreo(onePassword[0].correo);
+        setEnlace(onePassword[0].enlace);
+        setSitio(onePassword[0].nombreDelSitio);
+        setObservacion(onePassword[0].observaciones);
+        setUsuario(onePassword[0].usuario);
+        //console.log("El que te llego:");
+        //console.log(onePassword);
     }
-    const visulizarContraseña = async () =>
+};
+
+
+const handlerUpdatePassword = () =>
+{
+    console.log("Click");
+    updateOnePassword(contraseña, correo, enlace, sitio, observacion, usuario,id);
+};
+
+const visulizarContraseña = async () =>
     {
         if (interruptor)
         {
@@ -41,9 +98,14 @@ const ViewInformation = ({route,navigation})=>
         
     };
 
-    
-    console.log("Desde view");
-    console.log(id);
+if (!fontsLoaded && !onePassword)
+    return (
+      <Content contentContainerStyle={{flex:1,
+        justifyContent: "center"}}>
+        <Spinner color="#5E5C00" />
+      </Content>
+);
+
     return(
         <Content style={{flex:1,  }} >
             
@@ -60,9 +122,16 @@ const ViewInformation = ({route,navigation})=>
         elevation: 10,
         padding:'5%' ,display:"flex",flexDirection:'column'}} >
                 
-                    <View>                   
-                    <H1 style={{color: '#731F0A'}}>Facebook</H1>
-                    <Text>gustavo.exe</Text>
+                    <View>
+                        <Item style={{borderColor:'transparent'}} >                   
+                            <Input onChangeText={setSitio} value={sitio} style={{ fontSize:30 ,color: '#731F0A'}}></Input>
+                            
+                        </Item>
+                        <Item style={{borderColor:'transparent'}} >
+                        <Input onChangeText={setUsuario} value={usuario} />
+                        </Item>
+
+                   
                     </View>
                    
                     <View style={{flex:1, justifyContent:'space-around'}} >
@@ -90,7 +159,7 @@ const ViewInformation = ({route,navigation})=>
                     </View>
             </View>
             <View style={{ display:'flex',flexDirection:'row', justifyContent:'center',marginTop:'3%'}} >  
-                <Button rounded  style={{ backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row',width:'90%'}} ><Text>Editar</Text></Button>
+                <Button onPress={handlerUpdatePassword} rounded  style={{ backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row',width:'90%'}} ><Text>Editar</Text></Button>
             </View>
 
             
@@ -99,3 +168,8 @@ const ViewInformation = ({route,navigation})=>
 }
 
 export default ViewInformation;
+//<Button rounded  style={{ backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row',width:'90%'}} ><Text>Editar</Text></Button>
+
+/**
+ * 
+ */
