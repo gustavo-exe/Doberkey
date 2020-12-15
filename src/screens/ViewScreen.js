@@ -19,7 +19,7 @@ const ViewInformation = ({route,navigation})=>
     const [enlace, setEnlace] = useState("");
     const [observacion, setObservacion] = useState("");
     const [verContraseña, setVerContraseña] = useState(false);
-    const [interruptor, setInterruptor] = useState(true);
+    const [interruptor, setInterruptor] = useState(false);
 
     const passwordContext = useContext(PasswordContext);
 
@@ -77,19 +77,19 @@ const handlerUpdatePassword = async () =>
 };
 
 const visulizarContraseña = async () =>
+{
+    if (interruptor)
     {
-        if (interruptor)
-        {
-            setInterruptor(false);
-            setVerContraseña(false);
-        }
-        else
-        {
-            setInterruptor(true);
-            setVerContraseña(true);
-        } 
-        
-    };
+        setInterruptor(false);
+        setVerContraseña(false);
+    }
+    else
+    {
+        setInterruptor(true);
+        setVerContraseña(true);
+    } 
+    
+};
 
 if (!fontsLoaded && !onePassword)
     return (
@@ -118,7 +118,8 @@ if (!fontsLoaded && !onePassword)
 						<Item icon onPress={visulizarContraseña} floatingLabel style={styles.borderInputs}>
 							
 							<Label>Contraseña</Label>
-							<Input secureTextEntry={verContraseña ? true : false } value={contraseña} onChangeText={setContraseña}/>
+							<Input secureTextEntry={verContraseña ? false : true } value={contraseña} onChangeText={setContraseña}/>
+                            
 							<Icon name="eye" />
 						</Item>
 
