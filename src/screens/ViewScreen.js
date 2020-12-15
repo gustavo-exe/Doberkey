@@ -91,7 +91,7 @@ const visulizarContraseña = async () =>
     
 };
 
-if (!fontsLoaded && !onePassword)
+if (!fontsLoaded)
     return (
     <Content contentContainerStyle={styles.spinnerContent}>
         <Spinner color="#5E5C00" />

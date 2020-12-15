@@ -8,7 +8,7 @@ const useDatabase = () => {
         try {
             console.log("Intentando colocar:");
             //await database.dropDatabaseTableAsync();
-            //await database.setupDataBaseTableAsync();
+            await database.setupDataBaseTableAsync();
             //await database.setupPasswordAsync();
 
             setIsLoadingComplete(true);
