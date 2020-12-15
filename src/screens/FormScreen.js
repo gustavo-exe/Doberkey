@@ -46,10 +46,11 @@ const FormScreen = ({navigation}) => {
         else setEnableSave(true);
       }, [sitio]);
 
-    const handlerNewPassword = async () => {
+    const handlerNewPassword =  () => {
         //Validar que el sitio este lleno
         if (sitio && usuario && contraseña && correo && enlace && observacion ){
-            await addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
+             addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
+             
             // Go back para volver a la pantalla anterior
             navigation.goBack();
         }else{
@@ -93,6 +94,7 @@ const FormScreen = ({navigation}) => {
                         <Label>Nombre del sitio</Label>
                         <Input value={sitio} 
                         onChangeText={setSitio} 
+                        onChange={()=> setErrorSitio('')}
                         style={errorSitio ? styles.inputError : null}/>
                     </Item>
                     { errorSitio ? (
@@ -102,39 +104,50 @@ const FormScreen = ({navigation}) => {
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Usuario</Label>
-                        <Input value={usuario} onChangeText={setUsuario}/>
+                        <Input value={usuario} 
+                        onChangeText={setUsuario} 
+                        onChange={()=> setErrorUsuario('')}/>
                     </Item>
                     { errorUsuario ? <Text style={styles.error}>Debes rellenar el usuario</Text> : null}
 
                     <Item icon onPress={visulizarContraseña} floatingLabel style={{borderColor: '#5E5C00'}}>
                         
                         <Label>Contraseña</Label>
-                        <Input secureTextEntry={verContraseña ? true : false } value={contraseña} onChangeText={setContraseña}/>
+                        <Input secureTextEntry={verContraseña ? true : false } 
+                        value={contraseña} 
+                        onChangeText={setContraseña}
+                        onChange={()=> setErrorContraseña('')}/>
                         <Icon name="eye" />
                     </Item>
                     { errorContraseña ? <Text style={styles.error}>Debes rellenar la contraseña</Text> : null}
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Correo</Label>
-                        <Input value={correo} onChangeText={setCorreo}/>
+                        <Input value={correo} 
+                        onChangeText={setCorreo}
+                        onChange={()=> setErrorCorreo('')}/>
                     </Item>
                     { errorCorreo ? <Text style={styles.error}>Debes rellenar el correo</Text> : null}
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Enlace</Label>
-                        <Input value={enlace} onChangeText={setEnlace}/>
+                        <Input value={enlace} 
+                        onChangeText={setEnlace}
+                        onChange={()=> setErrorEnlace('')}/>
                     </Item>
                     { errorEnlace ? <Text style={styles.error}>Debes rellenar el enlace</Text> : null}
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Observaciones</Label>
-                        <Input value={observacion} onChangeText={setObservacion}/>
+                        <Input value={observacion} 
+                        onChangeText={setObservacion}
+                        onChange={()=> setErrorObservacion('')}/>
                     </Item>
                     { errorObservacion ? <Text style={styles.error}>Debes rellenar la observacion</Text> : null}
 
                     
                     <Button block  onPress={handlerNewPassword} style={styles.button}>
-                        <Text>Guardar</Text>
+                        <Text style={styles.textButton}>Guardar</Text>
                     </Button>
         
             </Container>
@@ -157,6 +170,10 @@ const styles = StyleSheet.create({
     button:{
         fontFamily: "Roboto",
         backgroundColor: '#5E5C00',
+    },
+    textButton:{
+        fontWeight: "bold", 
+        fontSize: 20
     },
     
 })
