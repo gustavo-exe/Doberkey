@@ -1,8 +1,9 @@
 import React , {useContext, useEffect, useState} from "react";
-import { Alert, StyleSheet,Dimensions } from "react-native";
-import { Container, Content, View,H1, Button, Input, Card, CardItem, Item, Text, Form, Label,ListItem,Icon,Spinner ,Left} from "native-base";
+import {StyleSheet,Dimensions } from "react-native";
+import {Content, View, Button, Input, Item, Text, Label,Icon,Spinner} from "native-base";
 import {PasswordContext} from "../context/PasswordContext";
 const {width, height} = Dimensions.get("window");
+
 import * as Font from "expo-font";
 
 const ViewInformation = ({route,navigation})=>
@@ -25,7 +26,7 @@ const ViewInformation = ({route,navigation})=>
     //Traer loc omponentes para actulizar la nota
     const {onePassword, getPasswordById, updateOnePassword} = passwordContext;
 
-    //const [thePassword, setThePassword] = useState(null);
+    //Estados para la fuente
     const [fontsLoaded, setFontsLoaded] = useState(false);     
      
 
@@ -33,7 +34,7 @@ const ViewInformation = ({route,navigation})=>
    useEffect(() => {
 
         //Obtener la nota
-        obteniendoNota(id, onePassword);
+        obteniendoPassword(id, onePassword);
 
         //Cargar la fuente
         const loadFontsAsync = async () => {
@@ -46,14 +47,9 @@ const ViewInformation = ({route,navigation})=>
 
         loadFontsAsync();
     }, []);
-/* 
-useEffect(()=>
-{
-   obteniendoNota(id, onePassword);
-},[]); */
 
-
-const obteniendoNota = (id, onePassword)=>
+//Cambiando el estado de cada uno de los campos
+const obteniendoPassword = (id, onePassword)=>
 {
     const getPassword = () =>
         {
@@ -64,22 +60,18 @@ const obteniendoNota = (id, onePassword)=>
 
     if(onePassword.length)
     {
-        //setThePassword(onePassword);
         setContraseña(onePassword[0].contraseña);
         setCorreo(onePassword[0].correo);
         setEnlace(onePassword[0].enlace);
         setSitio(onePassword[0].nombreDelSitio);
         setObservacion(onePassword[0].observaciones);
         setUsuario(onePassword[0].usuario);
-        //console.log("El que te llego:");
-        //console.log(onePassword);
     }
 };
 
 
 const handlerUpdatePassword = () =>
 {
-    console.log("Click");
     updateOnePassword(contraseña, correo, enlace, sitio, observacion, usuario,id);
 };
 
@@ -100,16 +92,76 @@ const visulizarContraseña = async () =>
 
 if (!fontsLoaded && !onePassword)
     return (
-      <Content contentContainerStyle={{flex:1,
-        justifyContent: "center"}}>
+    <Content contentContainerStyle={styles.spinnerContent}>
         <Spinner color="#5E5C00" />
-      </Content>
+    </Content>
 );
 
     return(
-        <Content style={{flex:1,  }} >
+        <Content style={styles.contendor}>
             
-            <View style={{ height:height * 0.70, margin:'10%', backgroundColor:'#ffffff', 
+            <View style={styles.viewCard} >
+                
+                    <View>
+                        <Item style={styles.itemTransparent} >                   
+                        	<Input onChangeText={setSitio} value={sitio} style={styles.sitio}></Input>
+                        </Item>
+							<Item style={styles.itemTransparent} >
+							<Input onChangeText={setUsuario} value={usuario} />
+                        </Item>
+
+                   
+                    </View>
+                   
+                    <View style={styles.viewInputs} >
+						<Item icon onPress={visulizarContraseña} floatingLabel style={style.borderInputs}>
+							
+							<Label>Contraseña</Label>
+							<Input secureTextEntry={verContraseña ? true : false } value={contraseña} onChangeText={setContraseña}/>
+							<Icon name="eye" />
+						</Item>
+
+						<Item floatingLabel style={style.borderInputs}>
+							<Label>Correo</Label>
+							<Input value={correo} onChangeText={setCorreo}/>
+						</Item>
+
+						<Item floatingLabel style={style.borderInputs}>
+							<Label>Enlace</Label>
+							<Input value={enlace} onChangeText={setEnlace}/>
+						</Item>
+
+						<Item floatingLabel style={style.borderInputs}>
+							<Label>Observaciones</Label>
+							<Input value={observacion} onChangeText={setObservacion}/>
+						</Item>
+                    </View>
+            </View>
+            <View style={styles.viewBotton} >  
+                <Button onPress={handlerUpdatePassword} rounded  style={styles.bottonGuardar} ><Text>Editar</Text></Button>
+            </View>
+
+            
+        </Content>
+    )
+};
+
+
+const styles = StyleSheet.create({
+	contendor:
+	{
+		flex:1
+	},
+	spinnerContent:
+	{
+		flex:1, 
+		justifyContent: "center"
+	},
+	viewCard:
+	{
+		height:height * 0.70, 
+		margin:'10%', 
+		backgroundColor:'#ffffff', 
         borderRadius:20,
         shadowColor: "#000",
         shadowOffset: 
@@ -120,56 +172,44 @@ if (!fontsLoaded && !onePassword)
         shadowOpacity: 0.58,
         shadowRadius: 16.00,            
         elevation: 10,
-        padding:'5%' ,display:"flex",flexDirection:'column'}} >
-                
-                    <View>
-                        <Item style={{borderColor:'transparent'}} >                   
-                            <Input onChangeText={setSitio} value={sitio} style={{ fontSize:30 ,color: '#731F0A'}}></Input>
-                            
-                        </Item>
-                        <Item style={{borderColor:'transparent'}} >
-                        <Input onChangeText={setUsuario} value={usuario} />
-                        </Item>
-
-                   
-                    </View>
-                   
-                    <View style={{flex:1, justifyContent:'space-around'}} >
-                    <Item icon onPress={visulizarContraseña} floatingLabel style={{borderColor: '#5E5C00'}}>
-                        
-                        <Label>Contraseña</Label>
-                        <Input secureTextEntry={verContraseña ? true : false } value={contraseña} onChangeText={setContraseña}/>
-                        <Icon name="eye" />
-                    </Item>
-
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
-                        <Label>Correo</Label>
-                        <Input value={correo} onChangeText={setCorreo}/>
-                    </Item>
-
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
-                        <Label>Enlace</Label>
-                        <Input value={enlace} onChangeText={setEnlace}/>
-                    </Item>
-
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
-                        <Label>Observaciones</Label>
-                        <Input value={observacion} onChangeText={setObservacion}/>
-                    </Item>
-                    </View>
-            </View>
-            <View style={{ display:'flex',flexDirection:'row', justifyContent:'center',marginTop:'3%'}} >  
-                <Button onPress={handlerUpdatePassword} rounded  style={{ backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row',width:'90%'}} ><Text>Editar</Text></Button>
-            </View>
-
-            
-        </Content>
-    )
-}
+		padding:'5%',
+		display:"flex",
+		flexDirection:'column'
+	},
+	itemTransparent:
+	{
+		borderColor:'transparent'
+	},
+	viewInputs:
+	{
+		flex:1, 
+		justifyContent:'space-around'
+	},
+	borderInputs:
+	{
+		borderColor: '#5E5C00'
+	},
+	viewBotton:
+	{
+		display:'flex',
+		flexDirection:'row', 
+		justifyContent:'center',
+		marginTop:'3%'
+	},
+	bottonGuardar:
+	{
+		backgroundColor:'#CAA648',
+		justifyContent:"center",
+		display:'flex',
+		flexDirection:'row',
+		width:'90%'
+	},
+	sitio:
+	{
+		fontSize:30,
+		color: '#731F0A'
+	}
+});
 
 export default ViewInformation;
 //<Button rounded  style={{ backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row',width:'90%'}} ><Text>Editar</Text></Button>
-
-/**
- * 
- */
