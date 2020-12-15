@@ -80,12 +80,12 @@ const visulizarContraseña = async () =>
         if (interruptor)
         {
             setInterruptor(false);
-            setVerContraseña(true);
+            setVerContraseña(false);
         }
         else
         {
             setInterruptor(true);
-            setVerContraseña(false);
+            setVerContraseña(true);
         } 
         
     };
