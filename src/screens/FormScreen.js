@@ -14,8 +14,14 @@ const FormScreen = ({navigation}) => {
     const [observacion, setObservacion] = useState("");
     const [verContraseña, setVerContraseña] = useState(false);
     const [interruptor, setInterruptor] = useState(true);
-    const [fontsLoaded, setFontsLoaded] = useState(false);     
-     
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    const [enableSave, setEnableSave] = useState(true);    
+    const [errorSitio, setErrorSitio] = useState(false); 
+    const [errorUsuario, setErrorUsuario] = useState(false);
+    const [errorContraseña, setErrorContraseña] = useState(false); 
+    const [errorCorreo, setErrorCorreo] = useState(false);
+    const [errorEnlace, setErrorEnlace] = useState(false);
+    const [errorObservacion, setErrorObservacion] = useState(false);
 
     // Cargar la fuente de manera asíncrona
     useEffect(() => {
@@ -34,13 +40,28 @@ const FormScreen = ({navigation}) => {
     //aqui falta un valor  no estoy seguro
     const {addNewPassword, refreshPasswords} = passwordContext;
 
-    const handlerNewPassword = () => {
-        
-        addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
 
-        // Go back para volver a la pantalla anterior
-        navigation.goBack();
-    }
+    useEffect(() => {
+        if (sitio) setEnableSave(false);
+        else setEnableSave(true);
+      }, [sitio]);
+
+    const handlerNewPassword = async () => {
+        //Validar que el sitio este lleno
+        if (sitio && usuario && contraseña && correo && enlace && observacion ){
+            await addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
+            // Go back para volver a la pantalla anterior
+            navigation.goBack();
+        }else{
+            setErrorSitio(true);
+            setErrorUsuario(true);
+            setErrorContraseña(true);
+            setErrorCorreo(true);
+            setErrorEnlace(true);
+            setErrorObservacion(true);
+        }
+    };
+
     const visulizarContraseña = async () =>
     {
         if (interruptor)
@@ -70,14 +91,20 @@ const FormScreen = ({navigation}) => {
                 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Nombre del sitio</Label>
-                        <Input value={sitio} onChangeText={setSitio}/>
+                        <Input value={sitio} 
+                        onChangeText={setSitio} 
+                        style={errorSitio ? styles.inputError : null}/>
                     </Item>
+                    { errorSitio ? (
+                        <Text style={styles.error}>Debes rellenar el sitio</Text>
+                     ) : null}
+                    
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Usuario</Label>
                         <Input value={usuario} onChangeText={setUsuario}/>
                     </Item>
-
+                    { errorUsuario ? <Text style={styles.error}>Debes rellenar el usuario</Text> : null}
 
                     <Item icon onPress={visulizarContraseña} floatingLabel style={{borderColor: '#5E5C00'}}>
                         
@@ -85,23 +112,28 @@ const FormScreen = ({navigation}) => {
                         <Input secureTextEntry={verContraseña ? true : false } value={contraseña} onChangeText={setContraseña}/>
                         <Icon name="eye" />
                     </Item>
+                    { errorContraseña ? <Text style={styles.error}>Debes rellenar la contraseña</Text> : null}
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Correo</Label>
                         <Input value={correo} onChangeText={setCorreo}/>
                     </Item>
+                    { errorCorreo ? <Text style={styles.error}>Debes rellenar el correo</Text> : null}
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Enlace</Label>
                         <Input value={enlace} onChangeText={setEnlace}/>
                     </Item>
+                    { errorEnlace ? <Text style={styles.error}>Debes rellenar el enlace</Text> : null}
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Observaciones</Label>
                         <Input value={observacion} onChangeText={setObservacion}/>
                     </Item>
+                    { errorObservacion ? <Text style={styles.error}>Debes rellenar la observacion</Text> : null}
 
-                    <Button rounded warning onPress={handlerNewPassword}>
+                    
+                    <Button block  onPress={handlerNewPassword} style={styles.button}>
                         <Text>Guardar</Text>
                     </Button>
         
@@ -115,6 +147,18 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: "center",
     },
+    error:{
+        fontSize: 12,
+        color: "red",
+    },
+    inputError:{
+        borderColor: "red",
+    },
+    button:{
+        fontFamily: "Roboto",
+        backgroundColor: '#5E5C00',
+    },
+    
 })
 
 
