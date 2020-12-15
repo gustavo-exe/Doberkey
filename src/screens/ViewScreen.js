@@ -80,7 +80,7 @@ const obteniendoNota = (id, onePassword)=>
 const handlerUpdatePassword = () =>
 {
     console.log("Click");
-    updateOnePassword(correo, id);
+    updateOnePassword(contraseña, correo, enlace, sitio, observacion, usuario,id);
 };
 
 const visulizarContraseña = async () =>
@@ -124,11 +124,11 @@ if (!fontsLoaded && !onePassword)
                 
                     <View>
                         <Item style={{borderColor:'transparent'}} >                   
-                            <Input value={sitio} style={{ fontSize:30 ,color: '#731F0A'}}></Input>
+                            <Input onChangeText={setSitio} value={sitio} style={{ fontSize:30 ,color: '#731F0A'}}></Input>
                             
                         </Item>
                         <Item style={{borderColor:'transparent'}} >
-                        <Input value={usuario} />
+                        <Input onChangeText={setUsuario} value={usuario} />
                         </Item>
 
                    

@@ -44,9 +44,9 @@ export const PasswordContextProvider = (props) =>
         return refreshPasswords();
     };
 
-    const updateOnePassword = async (correo, id) =>
+    const updateOnePassword = async (contraseña, correo, enlace, nombreDelSitio, observaciones, usuario, id) =>
     {
-        await database.updatePassword(correo, id, refreshPasswords);
+        await database.updatePassword(contraseña, correo, enlace, nombreDelSitio, observaciones, usuario, id, refreshPasswords);
         return refreshPasswords();
     };
 

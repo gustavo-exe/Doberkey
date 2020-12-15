@@ -65,9 +65,9 @@ const getPasswordById = (id, setPasswordFunc) =>
 };
 
 //
-const updatePassword = async (correo, id, successFunc) => {
+const updatePassword = async (contraseña, correo, enlace, nombreDelSitio, observaciones, usuario, id, successFunc) => {
     db.transaction((tx) =>{
-        tx.executeSql("update password set correo = ? where id =?", [correo, id]);
+        tx.executeSql("update password set contraseña=?, correo=? ,enlace=?, nombreDelSitio=?, observaciones=?, usuario=? where id =?", [contraseña, correo, enlace, nombreDelSitio, observaciones, usuario, id]);
     },
     (_t, error) => {
         console.log("Error al actulizar la tabla.");
