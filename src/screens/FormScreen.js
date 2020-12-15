@@ -17,11 +17,6 @@ const FormScreen = ({navigation}) => {
     const [fontsLoaded, setFontsLoaded] = useState(false);
     const [enableSave, setEnableSave] = useState(true);    
     const [errorSitio, setErrorSitio] = useState(false); 
-    const [errorUsuario, setErrorUsuario] = useState(false);
-    const [errorContraseña, setErrorContraseña] = useState(false); 
-    const [errorCorreo, setErrorCorreo] = useState(false);
-    const [errorEnlace, setErrorEnlace] = useState(false);
-    const [errorObservacion, setErrorObservacion] = useState(false);
 
     // Cargar la fuente de manera asíncrona
     useEffect(() => {
@@ -55,11 +50,7 @@ const FormScreen = ({navigation}) => {
             navigation.goBack();
         }else{
             setErrorSitio(true);
-            setErrorUsuario(true);
-            setErrorContraseña(true);
-            setErrorCorreo(true);
-            setErrorEnlace(true);
-            setErrorObservacion(true);
+            
         }
     };
 
@@ -90,27 +81,25 @@ const FormScreen = ({navigation}) => {
             <Container style={{flex:1, justifyContent:'space-between', flexDirection:'column', padding:'5%'}} >
                 <H1 style={{textAlign: "center"}}>Ingrese los datos</H1>
                 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Nombre del sitio</Label>
                         <Input value={sitio} 
                         onChangeText={setSitio} 
                         onChange={()=> setErrorSitio('')}
-                        style={errorSitio ? styles.inputError : null}/>
+                        />
                     </Item>
-                    { errorSitio ? (
-                        <Text style={styles.error}>Debes rellenar el sitio</Text>
-                     ) : null}
+                    
                     
 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Usuario</Label>
                         <Input value={usuario} 
                         onChangeText={setUsuario} 
                         onChange={()=> setErrorUsuario('')}/>
                     </Item>
-                    { errorUsuario ? <Text style={styles.error}>Debes rellenar el usuario</Text> : null}
+                   
 
-                    <Item icon onPress={visulizarContraseña} floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item icon onPress={visulizarContraseña} floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         
                         <Label>Contraseña</Label>
                         <Input secureTextEntry={verContraseña ? true : false } 
@@ -119,33 +108,32 @@ const FormScreen = ({navigation}) => {
                         onChange={()=> setErrorContraseña('')}/>
                         <Icon name="eye" />
                     </Item>
-                    { errorContraseña ? <Text style={styles.error}>Debes rellenar la contraseña</Text> : null}
+                    
 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Correo</Label>
                         <Input value={correo} 
                         onChangeText={setCorreo}
                         onChange={()=> setErrorCorreo('')}/>
                     </Item>
-                    { errorCorreo ? <Text style={styles.error}>Debes rellenar el correo</Text> : null}
+                    
 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Enlace</Label>
                         <Input value={enlace} 
                         onChangeText={setEnlace}
                         onChange={()=> setErrorEnlace('')}/>
                     </Item>
-                    { errorEnlace ? <Text style={styles.error}>Debes rellenar el enlace</Text> : null}
+                    
 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Observaciones</Label>
                         <Input value={observacion} 
                         onChangeText={setObservacion}
                         onChange={()=> setErrorObservacion('')}/>
                     </Item>
-                    { errorObservacion ? <Text style={styles.error}>Debes rellenar la observacion</Text> : null}
 
-                    
+                    { errorSitio ? <Text style={styles.error}>¡No debes dejar campos vacios!</Text> : null}
                     <Button block  onPress={handlerNewPassword} style={styles.button}>
                         <Text style={styles.textButton}>Guardar</Text>
                     </Button>
@@ -165,7 +153,7 @@ const styles = StyleSheet.create({
         color: "red",
     },
     inputError:{
-        borderColor: "red",
+        borderColor: 'red',
     },
     button:{
         fontFamily: "Roboto",
@@ -173,8 +161,11 @@ const styles = StyleSheet.create({
     },
     textButton:{
         fontWeight: "bold", 
-        fontSize: 20
+        fontSize: 20,
     },
+    inputCorrect:{
+        borderColor: '#5E5C00',  
+    }
     
 })
 
