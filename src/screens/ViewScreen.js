@@ -1,8 +1,9 @@
 import React , {useContext, useEffect, useState} from "react";
 import { Alert, StyleSheet,Dimensions } from "react-native";
-import { Container, Content, View,H1, Button, Input, Card, CardItem, Item, Text, Form, Label,ListItem,Icon ,Left} from "native-base";
+import { Container, Content, View,H1, Button, Input, Card, CardItem, Item, Text, Form, Label,ListItem,Icon,Spinner ,Left} from "native-base";
 import {PasswordContext} from "../context/PasswordContext";
 const {width, height} = Dimensions.get("window");
+import * as Font from "expo-font";
 
 const ViewInformation = ({route,navigation})=>
 {
@@ -13,7 +14,7 @@ const ViewInformation = ({route,navigation})=>
     const [sitio, setSitio] = useState("");
     const [usuario, setUsuario] = useState("");
     const [contraseña, setContraseña] = useState("");
-    const [correo, setTheCorreo] = useState("");
+    const [correo, setCorreo] = useState("");
     const [enlace, setEnlace] = useState("");
     const [observacion, setObservacion] = useState("");
     const [verContraseña, setVerContraseña] = useState(false);
@@ -22,33 +23,65 @@ const ViewInformation = ({route,navigation})=>
     const passwordContext = useContext(PasswordContext);
 
     //Traer loc omponentes para actulizar la nota
-    const {onePassword, getPasswordById} = passwordContext;
+    const {onePassword, getPasswordById, updateOnePassword} = passwordContext;
 
-    const [thePassword, setThePassword] = useState(null);
+    //const [thePassword, setThePassword] = useState(null);
+    const [fontsLoaded, setFontsLoaded] = useState(false);     
+     
 
+   
+   useEffect(() => {
 
+        //Obtener la nota
+        obteniendoNota(id, onePassword);
+
+        //Cargar la fuente
+        const loadFontsAsync = async () => {
+        await Font.loadAsync({
+            Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+        }).then(() => {
+            setFontsLoaded(true);
+        });
+        };
+
+        loadFontsAsync();
+    }, []);
+/* 
 useEffect(()=>
 {
-   
-        const getPassword = () =>
+   obteniendoNota(id, onePassword);
+},[]); */
+
+
+const obteniendoNota = (id, onePassword)=>
+{
+    const getPassword = () =>
         {
             getPasswordById(id);
         };
-   
 
     getPassword();
 
     if(onePassword.length)
     {
-        setThePassword(onePassword);
-        //setContraseña(password[0].contraseña);
-        setTheCorreo(onePassword[0].correo);
+        //setThePassword(onePassword);
+        setContraseña(onePassword[0].contraseña);
+        setCorreo(onePassword[0].correo);
+        setEnlace(onePassword[0].enlace);
+        setSitio(onePassword[0].nombreDelSitio);
+        setObservacion(onePassword[0].observaciones);
+        setUsuario(onePassword[0].usuario);
         //console.log("El que te llego:");
         //console.log(onePassword);
     }
+};
 
-},[id, onePassword]);
-    
+
+const handlerUpdatePassword = () =>
+{
+    console.log("Click");
+    updateOnePassword(correo, id);
+};
 
 const visulizarContraseña = async () =>
     {
@@ -64,6 +97,14 @@ const visulizarContraseña = async () =>
         } 
         
     };
+
+if (!fontsLoaded && !onePassword)
+    return (
+      <Content contentContainerStyle={{flex:1,
+        justifyContent: "center"}}>
+        <Spinner color="#5E5C00" />
+      </Content>
+);
 
     return(
         <Content style={{flex:1,  }} >
@@ -81,9 +122,16 @@ const visulizarContraseña = async () =>
         elevation: 10,
         padding:'5%' ,display:"flex",flexDirection:'column'}} >
                 
-                    <View>                   
-                    <H1 style={{color: '#731F0A'}}>Facebook</H1>
-                    <Text>gustavo.exe</Text>
+                    <View>
+                        <Item style={{borderColor:'transparent'}} >                   
+                            <Input value={sitio} style={{ fontSize:30 ,color: '#731F0A'}}></Input>
+                            
+                        </Item>
+                        <Item style={{borderColor:'transparent'}} >
+                        <Input value={usuario} />
+                        </Item>
+
+                   
                     </View>
                    
                     <View style={{flex:1, justifyContent:'space-around'}} >
@@ -96,7 +144,7 @@ const visulizarContraseña = async () =>
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Correo</Label>
-                        <Input value={correo} onChangeText={setTheCorreo}/>
+                        <Input value={correo} onChangeText={setCorreo}/>
                     </Item>
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
@@ -111,7 +159,7 @@ const visulizarContraseña = async () =>
                     </View>
             </View>
             <View style={{ display:'flex',flexDirection:'row', justifyContent:'center',marginTop:'3%'}} >  
-                <Button rounded  style={{ backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row',width:'90%'}} ><Text>Editar</Text></Button>
+                <Button onPress={handlerUpdatePassword} rounded  style={{ backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row',width:'90%'}} ><Text>Editar</Text></Button>
             </View>
 
             

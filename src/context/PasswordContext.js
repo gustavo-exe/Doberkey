@@ -41,7 +41,13 @@ export const PasswordContextProvider = (props) =>
     const addNewPassword = async (nombreDelSitio, usuario, contraseña, correo, enlace, observaciones)=>
     {
         await database.insertPassword(nombreDelSitio, usuario, contraseña, correo, enlace, observaciones, refreshPasswords);
-        return refreshPasswords();s
+        return refreshPasswords();
+    };
+
+    const updateOnePassword = async (correo, id) =>
+    {
+        await database.updatePassword(correo, id, refreshPasswords);
+        return refreshPasswords();
     };
 
     //Objeto de contexto
@@ -50,6 +56,7 @@ export const PasswordContextProvider = (props) =>
         addNewPassword,
         getPasswordById,
         onePassword,
+        updateOnePassword,
     };
 
     //Pasar los valores
