@@ -13,10 +13,11 @@ const FormScreen = ({navigation}) => {
     const [enlace, setEnlace] = useState("");
     const [observacion, setObservacion] = useState("");
     const [verContraseña, setVerContraseña] = useState(false);
-    const [interruptor, setInterruptor] = useState(true);
+    const [interruptor, setInterruptor] = useState(false);
     const [fontsLoaded, setFontsLoaded] = useState(false);
     const [enableSave, setEnableSave] = useState(true);    
     const [errorSitio, setErrorSitio] = useState(false); 
+    
 
     // Cargar la fuente de manera asíncrona
     useEffect(() => {
@@ -59,12 +60,12 @@ const FormScreen = ({navigation}) => {
         if (interruptor)
         {
             setInterruptor(false);
-            setVerContraseña(true);
+            setVerContraseña(false);
         }
         else
         {
             setInterruptor(true);
-            setVerContraseña(false);
+            setVerContraseña(true);
         } 
         
     };
@@ -85,7 +86,6 @@ const FormScreen = ({navigation}) => {
                         <Label>Nombre del sitio</Label>
                         <Input value={sitio} 
                         onChangeText={setSitio} 
-                        onChange={()=> setErrorSitio('')}
                         />
                     </Item>
                     
@@ -95,17 +95,16 @@ const FormScreen = ({navigation}) => {
                         <Label>Usuario</Label>
                         <Input value={usuario} 
                         onChangeText={setUsuario} 
-                        onChange={()=> setErrorUsuario('')}/>
+                        />
                     </Item>
                    
 
                     <Item icon onPress={visulizarContraseña} floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         
                         <Label>Contraseña</Label>
-                        <Input secureTextEntry={verContraseña ? true : false } 
+                        <Input secureTextEntry={verContraseña ? false : true } 
                         value={contraseña} 
-                        onChangeText={setContraseña}
-                        onChange={()=> setErrorContraseña('')}/>
+                        onChangeText={setContraseña}/>
                         <Icon name="eye" />
                     </Item>
                     
@@ -113,24 +112,21 @@ const FormScreen = ({navigation}) => {
                     <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Correo</Label>
                         <Input value={correo} 
-                        onChangeText={setCorreo}
-                        onChange={()=> setErrorCorreo('')}/>
+                        onChangeText={setCorreo}/>
                     </Item>
                     
 
                     <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Enlace</Label>
                         <Input value={enlace} 
-                        onChangeText={setEnlace}
-                        onChange={()=> setErrorEnlace('')}/>
+                        onChangeText={setEnlace}/>
                     </Item>
                     
 
                     <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Observaciones</Label>
                         <Input value={observacion} 
-                        onChangeText={setObservacion}
-                        onChange={()=> setErrorObservacion('')}/>
+                        onChangeText={setObservacion}/>
                     </Item>
 
                     { errorSitio ? <Text style={styles.error}>¡No debes dejar campos vacios!</Text> : null}
