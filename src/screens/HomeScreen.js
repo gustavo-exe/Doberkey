@@ -1,5 +1,5 @@
-import {Container,  Header, Button, Content,Spinner ,Card, CardItem, Body,H1,List,Text,View, ListItem, Icon,Item} from "native-base";
-import React , {useContext, useEffect, useState} from "react";
+import { Button, Content,Card, CardItem, Body,List,Text,View,  Icon} from "native-base";
+import React , {useContext} from "react";
 import {Dimensions,StyleSheet } from "react-native";
 import {PasswordContext} from "../context/PasswordContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -14,14 +14,7 @@ const Home = ({navigation})=>
     console.log(passwords);
     //console.log(passwords.length);
     //const [cantidadDeClaves, setCantidadDeClaves] = useState(0);
-    
-    if (!passwords) {
-        return (
-          <View style={styles.spinner}>
-            <Spinner color="#731F0A" />
-          </View>
-        );
-      }
+  
 
         return(
             <View style={styles.contenedorPrincipal} >
@@ -96,11 +89,6 @@ const Home = ({navigation})=>
 };
 
 const styles = StyleSheet.create({
-    spinner:
-    {
-        flex: 1, 
-        justifyContent: "center" 
-    },
     contenedorPrincipal:
     {
         flex:1, 
