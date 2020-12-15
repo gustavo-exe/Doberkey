@@ -2,25 +2,27 @@
     <img src="https://user-images.githubusercontent.com/61214852/102045057-bde51980-3d9d-11eb-9b13-941a756732c2.jpg" alt="Logo">
 </p>
 
-Waves es una aplicación de gestos de contraseñas
+Doberkey es un gestor de contraseñas que ayuda a las personas a administrar mejor las claves de sus sitios web. DoberKey representa un armario de llaves físico.<br>
+Simplemente agregue sus datos y password a Doberkey y así lo podra tener a su alcance de manera fácil y rápida. DoberKey le ayuda a mantener su inventario de claves ordenado y con una vista muy agradable.
 
-Es un proyecto para la clase de programación móvil I de la Universidad Catolica de Honduras Campus "Jesus Sacramentado".
+DoberKey es un proyecto para la clase de programación móvil I de la Universidad Catolica de Honduras Campus "Jesus Sacramentado".
 
 ## Objetivos
 ### Objetivos General
- * 
+ * Aprender a usar e implementar SQLite en una aplicación móvil.
  
 ### Objetivos Específicos 
- * 
- * 
+ * Proporcionar las bases para una aplicación que gestiona contraseñas.
+ * Realizar una aplicación que permita al usuario ver, almacenar y editar información.
 
-## Mockups
-
+## UI
+![DoberkeyMockup](https://user-images.githubusercontent.com/61214852/102173999-08c86500-3e62-11eb-9111-572684efdbde.jpg)
+![image](https://user-images.githubusercontent.com/61214852/102175023-5a71ef00-3e64-11eb-810d-97c72fadfd47.png)
 
 
 ## Construido con
 
-Es una aplicacion basada en los conocimientos de JavaScript, Expo, NodeJS en la clase Programación Móvil I, impartida por el 
+Es una aplicacion basada en los conocimientos de JavaScript, Expo, NodeJS y SQLite en la clase Programación Móvil I, impartida por el 
 [Ing. Héctor Sábillon](https://github.com/hsabillon7)
 
 Como framework utilizamos:
@@ -50,11 +52,15 @@ npm install
 
 
 ## Conclusiones
- * 
+ * Con los conocimientos de la clase hemos obtenido resultados positivos de acuerdo a los objetivos planteados
+ * Hemos proporcionado una aplicación para que usuarios puedan guardar sus datos de contraseñas ayudandoles en varios aspectos.
+ * Manejamos SQLite para crear una base de datos, tablas y otras funciones/componentes que ayudan a la completación de la aplicación en general.
+ * A la hora de querer tener la visualizacion de una de las tarjetas que se encuentran en home y querer modificarla carga su contenido hasta la segunda vez.
 <br>
+
 <br>
 <p align="center">
- Autor<br> 
-  Frase 
+   Sam Levenson<br> 
+   No mires el reloj; haz lo mismo que él, ve avanzando.
                                                         
 </p>
