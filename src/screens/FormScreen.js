@@ -14,8 +14,9 @@ const FormScreen = ({navigation}) => {
     const [observacion, setObservacion] = useState("");
     const [verContraseña, setVerContraseña] = useState(false);
     const [interruptor, setInterruptor] = useState(true);
-    const [fontsLoaded, setFontsLoaded] = useState(false);     
-     
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    const [enableSave, setEnableSave] = useState(true);    
+    const [errorSitio, setErrorSitio] = useState(false); 
 
     // Cargar la fuente de manera asíncrona
     useEffect(() => {
@@ -34,13 +35,25 @@ const FormScreen = ({navigation}) => {
     //aqui falta un valor  no estoy seguro
     const {addNewPassword, refreshPasswords} = passwordContext;
 
-    const handlerNewPassword = () => {
-        
-        addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
 
-        // Go back para volver a la pantalla anterior
-        navigation.goBack();
-    }
+    useEffect(() => {
+        if (sitio) setEnableSave(false);
+        else setEnableSave(true);
+      }, [sitio]);
+
+    const handlerNewPassword =  () => {
+        //Validar que el sitio este lleno
+        if (sitio && usuario && contraseña && correo && enlace && observacion ){
+             addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
+             
+            // Go back para volver a la pantalla anterior
+            navigation.goBack();
+        }else{
+            setErrorSitio(true);
+            
+        }
+    };
+
     const visulizarContraseña = async () =>
     {
         if (interruptor)
@@ -68,41 +81,61 @@ const FormScreen = ({navigation}) => {
             <Container style={{flex:1, justifyContent:'space-between', flexDirection:'column', padding:'5%'}} >
                 <H1 style={{textAlign: "center"}}>Ingrese los datos</H1>
                 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Nombre del sitio</Label>
-                        <Input value={sitio} onChangeText={setSitio}/>
+                        <Input value={sitio} 
+                        onChangeText={setSitio} 
+                        onChange={()=> setErrorSitio('')}
+                        />
                     </Item>
+                    
+                    
 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Usuario</Label>
-                        <Input value={usuario} onChangeText={setUsuario}/>
+                        <Input value={usuario} 
+                        onChangeText={setUsuario} 
+                        onChange={()=> setErrorUsuario('')}/>
                     </Item>
+                   
 
-
-                    <Item icon onPress={visulizarContraseña} floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item icon onPress={visulizarContraseña} floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         
                         <Label>Contraseña</Label>
-                        <Input secureTextEntry={verContraseña ? true : false } value={contraseña} onChangeText={setContraseña}/>
+                        <Input secureTextEntry={verContraseña ? true : false } 
+                        value={contraseña} 
+                        onChangeText={setContraseña}
+                        onChange={()=> setErrorContraseña('')}/>
                         <Icon name="eye" />
                     </Item>
+                    
 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Correo</Label>
-                        <Input value={correo} onChangeText={setCorreo}/>
+                        <Input value={correo} 
+                        onChangeText={setCorreo}
+                        onChange={()=> setErrorCorreo('')}/>
                     </Item>
+                    
 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Enlace</Label>
-                        <Input value={enlace} onChangeText={setEnlace}/>
+                        <Input value={enlace} 
+                        onChangeText={setEnlace}
+                        onChange={()=> setErrorEnlace('')}/>
                     </Item>
+                    
 
-                    <Item floatingLabel style={{borderColor: '#5E5C00'}}>
+                    <Item floatingLabel style={errorSitio ? styles.inputError : styles.inputCorrect}>
                         <Label>Observaciones</Label>
-                        <Input value={observacion} onChangeText={setObservacion}/>
+                        <Input value={observacion} 
+                        onChangeText={setObservacion}
+                        onChange={()=> setErrorObservacion('')}/>
                     </Item>
 
-                    <Button rounded warning onPress={handlerNewPassword}>
-                        <Text>Guardar</Text>
+                    { errorSitio ? <Text style={styles.error}>¡No debes dejar campos vacios!</Text> : null}
+                    <Button block  onPress={handlerNewPassword} style={styles.button}>
+                        <Text style={styles.textButton}>Guardar</Text>
                     </Button>
         
             </Container>
@@ -115,6 +148,25 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: "center",
     },
+    error:{
+        fontSize: 12,
+        color: "red",
+    },
+    inputError:{
+        borderColor: 'red',
+    },
+    button:{
+        fontFamily: "Roboto",
+        backgroundColor: '#5E5C00',
+    },
+    textButton:{
+        fontWeight: "bold", 
+        fontSize: 20,
+    },
+    inputCorrect:{
+        borderColor: '#5E5C00',  
+    }
+    
 })
 
 
