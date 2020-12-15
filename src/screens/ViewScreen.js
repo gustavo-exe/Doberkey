@@ -1,32 +1,56 @@
 import React , {useContext, useEffect, useState} from "react";
 import { Alert, StyleSheet,Dimensions } from "react-native";
-import { Container, Content, View,H1, Input, Card, CardItem, Item, Text, Form, Label, Button, ListItem,Icon ,Left} from "native-base";
+import { Container, Content, View,H1, Button, Input, Card, CardItem, Item, Text, Form, Label,ListItem,Icon ,Left} from "native-base";
 import {PasswordContext} from "../context/PasswordContext";
 const {width, height} = Dimensions.get("window");
+
 const ViewInformation = ({route,navigation})=>
 {
     const { id }= route.params;
+    console.log("Id de password:");
+    console.log(id);
 
     const [sitio, setSitio] = useState("");
     const [usuario, setUsuario] = useState("");
     const [contraseña, setContraseña] = useState("");
-    const [correo, setCorreo] = useState("");
+    const [correo, setTheCorreo] = useState("");
     const [enlace, setEnlace] = useState("");
     const [observacion, setObservacion] = useState("");
     const [verContraseña, setVerContraseña] = useState(false);
     const [interruptor, setInterruptor] = useState(true);
 
     const passwordContext = useContext(PasswordContext);
-    //aqui falta un valor  no estoy seguro
-    const {addNewPassword, refreshPasswords} = passwordContext;
 
-    const handlerNewPassword = () => {
-        addNewPassword(sitio, usuario, contraseña, correo, enlace, observacion, refreshPasswords);
+    //Traer loc omponentes para actulizar la nota
+    const {onePassword, getPasswordById} = passwordContext;
 
-        // Go back para volver a la pantalla anterior
-        navigation.goBack();
+    const [thePassword, setThePassword] = useState(null);
+
+
+useEffect(()=>
+{
+   
+        const getPassword = () =>
+        {
+            getPasswordById(id);
+        };
+   
+
+    getPassword();
+
+    if(onePassword.length)
+    {
+        setThePassword(onePassword);
+        //setContraseña(password[0].contraseña);
+        setTheCorreo(onePassword[0].correo);
+        //console.log("El que te llego:");
+        //console.log(onePassword);
     }
-    const visulizarContraseña = async () =>
+
+},[id, onePassword]);
+    
+
+const visulizarContraseña = async () =>
     {
         if (interruptor)
         {
@@ -41,9 +65,6 @@ const ViewInformation = ({route,navigation})=>
         
     };
 
-    
-    console.log("Desde view");
-    console.log(id);
     return(
         <Content style={{flex:1,  }} >
             
@@ -75,7 +96,7 @@ const ViewInformation = ({route,navigation})=>
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
                         <Label>Correo</Label>
-                        <Input value={correo} onChangeText={setCorreo}/>
+                        <Input value={correo} onChangeText={setTheCorreo}/>
                     </Item>
 
                     <Item floatingLabel style={{borderColor: '#5E5C00'}}>
@@ -99,3 +120,8 @@ const ViewInformation = ({route,navigation})=>
 }
 
 export default ViewInformation;
+//<Button rounded  style={{ backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row',width:'90%'}} ><Text>Editar</Text></Button>
+
+/**
+ * 
+ */

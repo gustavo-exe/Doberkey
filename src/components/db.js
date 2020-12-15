@@ -41,6 +41,45 @@ const insertPassword = async (nombreDelSitio, usuario, contraseña, correo, enla
     );
 };
 
+//Obenter un tupla
+const getPasswordById = (id, setPasswordFunc) =>
+{
+    db.transaction((tx)=>
+    {
+        tx.executeSql(
+            "select * from password where id = ?",
+            [id],
+            (_, { rows: { _array } }) => {
+              setPasswordFunc(_array);
+              //console.log(_array);
+            },
+            (_t, error) => {
+              console.log("Error al momento de obtener las contraseña.");
+              console.log(error);
+            },
+            (_t, _success) => {
+              console.log("Contraseña obtenida.");
+            }
+          );
+    });
+};
+
+//
+const updatePassword = async (correo, id, successFunc) => {
+    db.transaction((tx) =>{
+        tx.executeSql("update password set correo= ?, where id =?", [correo, id]);
+    },
+    (_t, error) => {
+        console.log("Error al actulizar la tabla.");
+        console.log(error);
+    },
+    (_t, _success) => {
+        successFunc;
+    }
+    );
+};
+
+
 //Borrar la base de datos
 const dropDatabaseTableAsync = async () =>
 {
@@ -133,4 +172,5 @@ export const database = {
     dropDatabaseTableAsync,
     setupDataBaseTableAsync,
     setupPasswordAsync,
+    getPasswordById,
 };
