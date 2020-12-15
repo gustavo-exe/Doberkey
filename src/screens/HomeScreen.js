@@ -27,11 +27,11 @@ const Home = ({navigation})=>
             <View style={styles.contenedorPrincipal} >
                 
                 <View style={styles.topGreen}>
-                    <Text style={styles.saludo} >Hola, ¿cual guardaremos hoy?</Text>
-                    <Text style={{color:'#B6B27F', margin:'4%'}} > {passwords.length} claves guardadas</Text>
-                    <View style={{ justifyContent:"center",display:'flex',flexDirection:'row' ,width:'60%'}} >
-                    <Button rounded style={{width:'60%', backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row'}} onPress={() => navigation.navigate('DoberkeyFormScreen', {})}>
-                        <Icon style={{}} name="add" />
+                    <Text style={styles.saludo} >Hola, ¿cuál guardaremos hoy?</Text>
+                    <Text style={styles.claves} > {passwords.length} claves guardadas</Text>
+                    <View style={styles.botonIcionGreen} >
+                    <Button rounded style={styles.botonPlus} onPress={() => navigation.navigate('DoberkeyFormScreen', {})}>
+                        <Icon name="add" />
                     </Button>
                     </View>
                 </View>
@@ -194,6 +194,26 @@ const styles = StyleSheet.create({
     detalle:
     {
         fontWeight:'bold'
+    },
+    claves:
+    {
+        color:'#B6B27F', 
+        margin:'4%'
+    },
+    botonIcionGreen:
+    {
+        justifyContent:"center",
+        display:'flex',
+        flexDirection:'row' ,
+        width:'60%'
+    },
+    botonPlus:
+    {
+        width:'60%', 
+        backgroundColor:'#CAA648' ,
+        justifyContent:"center",
+        display:'flex',
+        flexDirection:'row'
     },
 });
 

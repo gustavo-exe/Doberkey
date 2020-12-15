@@ -70,9 +70,10 @@ const obteniendoPassword = (id, onePassword)=>
 };
 
 
-const handlerUpdatePassword = () =>
+const handlerUpdatePassword = async () =>
 {
-    updateOnePassword(contraseña, correo, enlace, sitio, observacion, usuario,id);
+    
+    await updateOnePassword(contraseña, correo, enlace, sitio, observacion, usuario,id);
 };
 
 const visulizarContraseña = async () =>
@@ -114,24 +115,24 @@ if (!fontsLoaded && !onePassword)
                     </View>
                    
                     <View style={styles.viewInputs} >
-						<Item icon onPress={visulizarContraseña} floatingLabel style={style.borderInputs}>
+						<Item icon onPress={visulizarContraseña} floatingLabel style={styles.borderInputs}>
 							
 							<Label>Contraseña</Label>
 							<Input secureTextEntry={verContraseña ? true : false } value={contraseña} onChangeText={setContraseña}/>
 							<Icon name="eye" />
 						</Item>
 
-						<Item floatingLabel style={style.borderInputs}>
+						<Item floatingLabel style={styles.borderInputs}>
 							<Label>Correo</Label>
 							<Input value={correo} onChangeText={setCorreo}/>
 						</Item>
 
-						<Item floatingLabel style={style.borderInputs}>
+						<Item floatingLabel style={styles.borderInputs}>
 							<Label>Enlace</Label>
 							<Input value={enlace} onChangeText={setEnlace}/>
 						</Item>
 
-						<Item floatingLabel style={style.borderInputs}>
+						<Item floatingLabel style={styles.borderInputs}>
 							<Label>Observaciones</Label>
 							<Input value={observacion} onChangeText={setObservacion}/>
 						</Item>
@@ -212,4 +213,3 @@ const styles = StyleSheet.create({
 });
 
 export default ViewInformation;
-//<Button rounded  style={{ backgroundColor:'#CAA648' ,justifyContent:"center",display:'flex',flexDirection:'row',width:'90%'}} ><Text>Editar</Text></Button>

@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     },
     button:{
         fontFamily: "Roboto",
-        backgroundColor: '#5E5C00',
+        backgroundColor:'#CAA648',
     },
     textButton:{
         fontWeight: "bold", 
